@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		*{margin: 0;padding: 0;}
+	.tab{width: 404px;overflow: hidden;position: relative;margin: 100px;}
+	.tab ul{width:300px;color: #FFFFFF;overflow: hidden;float: left;}
+	.tab ul li{width:100px;text-indent: 10px;height: 30px;line-height: 30px;background: #FF6A05;}
+	.tab ul li div{position: absolute;left: 100px;height: 56px;border:2px solid #f60;top: 0;width: 200px;display: none;}
+	</style>
+</head>
+<body>
+	<div class="tab">
+		<ul id="tab">
+			<li>
+				1
+				<div>
+					<a href="">1</a>
+				</div>
+			</li>
+			<li>
+				2
+				<div>
+					<a href="">2</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script>
+	var tab = document.getElementById("tab");
+	var li = tab.getElementsByTagName("li");
+	var div = tab.getElementsByTagName("div");
+	for(var i=0;i<li.length;i++){
+		li[i].index = i;
+		li[i].onmouseover = function(){
+			for(var j=0;j<li.length;j++){
+				li[j].style.background = "";
+				div[j].style.display = "none";
+			}
+			this.style.background = "red";
+			div[this.index].style.display = "block";
+		}
+		li[i].onmouseout = function(){
+			div[this.index].style.display = "none";
+		}
+	}
+</script>
+</html>

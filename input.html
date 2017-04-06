@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		input[type="submit"]{cursor: pointer;float: left;}
+		input{display: block;margin: 0 10px 10px 0;}
+		.clear{clear: both;}
+	</style>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="name" style="float:left;">
+		<input type="button" name="add" value="+" id="add"><div class="clear"></div>
+	</form>
+</body>
+<script type="text/javascript">
+	var add = document.getElementById("add");
+	add.onclick = function(){
+		var text = document.createElement("input");
+		document.body.appendChild(text);
+	}
+</script>
+</html>

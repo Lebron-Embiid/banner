@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div id="contion">
+        <div id="bener" style="left: 0">
+            <img src="images/case01.jpg" alt="">
+            <img src="images/case02.jpg" alt="">
+            <img src="images/case03.jpg" alt="">
+            <img src="images/2.jpg" alt="">
+            <img src="images/123.png" alt="">
+        </div>
+        <div id="controls">
+            <span index="1" class="on"></span>
+            <span index="2"></span>
+            <span index="3"></span>
+            <span index="4"></span>
+            <span index="5"></span>
+        </div>
+        <a id="left" href="javascript:;">
+            <img src="images/detaikl_prev.png" alt="">
+        </a>  
+        <a id="right" href="javascript:;">
+            <img src="images/detaikl_next.png" alt="">
+        </a>
+    </div>
+    <script type="text/javascript">
+        var Ben=document.getElementById("bener");
+        var Contion=document.getElementById("contion");
+        var Controls=document.getElementById("controls");
+        var Conspan=Controls.getElementsByTagName("span");
+        var Left=document.getElementById("left");
+        var Right=document.getElementById("right");
+        var index=1;
+        function show(e){
+            var conriib=parseInt(Ben.style.left)+e;
+                Ben.style.left=conriib+"px";
+                if(conriib<-4964){
+                Ben.style.left=0+"px";
+                }
+                if(conriib>0){
+                Ben.style.left=-4964+"px";
+                }
+        }
+        Left.onclick=function(){
+            show(1241);
+              index -=1;
+            if(index<1){
+                index=5;
+            }
+            btnshow();
+        }
+        Right.onclick=function(){
+            show(-1241);
+            index+=1;
+            if(index>5){
+                index=1;
+            }
+            btnshow();
+        }
+        function btnshow(){
+            for(var i=0;i<Conspan.length;i++){
+                Conspan[i].className="";
+            }
+            Conspan[index-1].className="on";
+        }
+        var time;
+        function play(){
+            time=setInterval(function(){
+                Right.onclick();
+            },1000)
+        }
+        for(var x=0;x<Conspan.length;x++){
+            Conspan[x].onclick=function(){
+               var Csom=parseInt(this.getAttribute("index"));
+               var ConFen=-1241*(Csom-index);
+               show(ConFen);
+               index=Csom;
+               btnshow();
+            }
+        }
+
+        Contion.onmouseover=function(){
+            clearInterval(time);
+        }
+        Contion.onmouseout=function(){
+            play();
+        }
+        play();
+    </script>
+    
+</body>
+</html>

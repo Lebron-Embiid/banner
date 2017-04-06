@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		p{width: 30px;height: 30px;border-radius: 50px;background: #FD8900;}
+		p span{margin-left: 8px;width: 5px;height: 5px;display: block;line-height: 30px;font-size:25px;color:#fff;}
+	</style>
+</head>
+<body>
+	<div id="div">
+		<p id="p"><span>+</span></p>
+	</div>
+</body>
+<script>
+	var div = document.getElementById("div");
+	var p = document.getElementById("p");
+	div.onmouseover = function(){
+		p.style.transform = "translate(300px) rotate(1440deg)";
+		p.style.transition = "transform 3s";
+	}
+	div.onmouseout = function(){
+		p.style.transform = "translate(0) rotate(0)";
+		p.style.transition = "transform 3s";
+	}
+</script>
+</html>

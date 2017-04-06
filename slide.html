@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box{width: 200px;height: 200px;margin: 20px auto;position: relative;}
+		#box #imgbox{width: 200px;height: 200px;}
+		#box #imgbox img{position: absolute;left: 0;opacity: 0;filter:alpha(opacity=0);}
+		#box #imgbox .show{opacity: 1;filter:alpha(opacity=100);transition:1s;}
+		#ul{width: 100px;height: 15px;position: absolute;left: 20px;bottom: -8px;z-index: 2;}
+		#ul li{width: 15px;height: 15px;border-radius: 50%;background: #000;float: left;list-style: none;margin-right: 5px;cursor: pointer;}
+		#ul li.active{background: red;}
+		#box .btn{width: 200px;height: 200px;position: absolute;left: 0;top:0;}
+		#box .btn div{width: 100px;height: 200px;display: block;float: left;position: relative;}
+		#box .btn span{width: 32px;height: 32px;display: none;}
+		#left{background: url(left.png) no-repeat;cursor: pointer;position: absolute;top: 40%;left: 10px;}
+		#right{background: url(right.png) no-repeat;position: absolute;top: 40%;right: 10px;cursor: pointer;}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="imgbox">
+			<img src="" alt="" class="show">
+			<img src="" alt="">
+			<img src="" alt="">
+			<img src="" alt="">
+		</div>
+		<ul id="ul">
+			<li class="active" index="1"></li>
+			<li index="2"></li>
+			<li index="3"></li>
+			<li index="4"></li>
+		</ul>
+		<div class="btn">
+			<div id="left_div"><span id="left"></span></div>
+			<div id="right_div"><span id="right"></span></div>
+		</div>
+	</div>
+</body>
+<script>
+	var img = document.images;
+	var box = document.getElementById("box");
+	var ul = document.getElementById("ul");
+	var li = ul.getElementsByTagName("li");
+	var left = document.getElementById("left");
+	var right = document.getElementById("right");
+	var left_div = document.getElementById("left_div");
+	var right_div = document.getElementById("right_div");
+	var arr = ["1.jpg","2.jpg","3.jpg","4.jpg"];
+	for(var i=0;i<arr.length;i++){
+		img[i].src = arr[i];
+	}
+	var n = 1;
+	for(var i=0;i<li.length;i++){
+	li[i].index = i;
+	li[i].onclick = function(){
+		for(var j=0;j<li.length;j++){
+			li[j].className = "";
+			img[j].className = "";
+		}
+			this.className = "active";
+			img[this.index].className = "show";
+		}
+	}
+	function show(){
+		for(var j=0;j<li.length;j++){
+			li[j].className = "";
+			img[j].className = "";
+		}
+			li[n-1].className = "active";
+			img[n-1].className = "show";
+	}
+	left.onclick = function(){
+		n--;
+		if(n == 0){
+			n = 4;
+		}
+		show();
+	}
+	right.onclick = function(){
+		n++;
+		if(n > 4){
+			n = 1;
+		}
+		show();
+	}
+	for(var i=0;i<li.length;i++){
+		li[i].onclick = function(){
+			var index_li = parseInt(this.getAttribute("index"));
+			n = index_li;
+			show();
+		}
+	}
+	var timer;
+	function time(){
+		timer = setInterval(function(){
+			right.onclick();
+		},1000);
+	}
+	box.onmouseover = function(){
+		clearInterval(timer);
+	}
+	box.onmouseout = function(){
+		clearInterval(timer);
+		time();
+	}
+	time();
+
+	left_div.onmouseover = function(){
+		left.style.display = "block";
+	}
+	left_div.onmouseout = function(){
+		left.style.display = "none";
+	}
+	right_div.onmouseover = function(){
+		right.style.display = "block";
+	}
+	right_div.onmouseout = function(){
+		right.style.display = "none";
+	}
+</script>
+</html>

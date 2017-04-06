@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>banner</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		#box{width: 500px;height: 300px;position: relative;margin: 0 auto; overflow: hidden; }
+		#box #banner{width: 2000px;height: 300px;position: absolute;left: 0px;}
+		#box #banner img{display: block;float: left;width: 500px;height: 300px;}
+		#box #banner .show{display: block;}
+		#box #banner .hide{display: none;}
+		#icon{width: 100px;height: 12px;position: absolute;bottom: 20px;left:45%;z-index: 2;}
+		#icon li{width: 15px;height: 15px;display: block;border-radius: 50%;margin-right: 5px;background: #000;float: left;cursor: pointer;}
+		#icon li.active{background: red;}
+		#box .btn{width: 500px;height: 300px;}
+		#box .btn div{width: 250px;height: 300px;display: block;float: left;position: relative;}
+		#box .btn span{width: 32px;height: 32px;display: none;}
+		#left{background: url(left.png) no-repeat;cursor: pointer;position: absolute;top: 50%;left: 20px;}
+		#right{background: url(right.png) no-repeat;position: absolute;top: 50%;right: 20px;cursor: pointer;}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="banner" style="left:0;">
+			<img src="" alt="">
+			<img src="" alt="">
+			<img src="" alt="">
+			<img src="" alt="">
+		</div>
+		<ul id="icon">
+			<li index="1" class="active"></li>
+			<li index="2"></li>
+			<li index="3"></li>
+			<li index="4"></li>
+		</ul>
+		<div class="btn">
+			<div id="left_div"><span id="left"></span></div>
+			<div id="right_div"><span id="right"></span></div>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload = function(){
+		var box = document.getElementById("box");
+		var banner = document.getElementById("banner");
+		// var img = banner.getElementsByTagName("img");
+		var icon = document.getElementById("icon");
+		var li = icon.getElementsByTagName("li");
+		var left_div = document.getElementById("left_div");
+		var right_div = document.getElementById("right_div");
+		var arr = ["slide.jpg","slide1.jpg","slide3.jpg","slide4.jpg"];
+		var img = document.images;
+		for(var i=0;i<arr.length;i++){
+			img[i].src = arr[i];
+		}
+		var left = document.getElementById("left");
+		var right = document.getElementById("right");
+		var num = 1;
+		function move(e){
+			var Left = parseInt(banner.style.left)+e;
+			banner.style.left = Left+"px";
+			if(Left < -1500){
+				banner.style.left = 0+"px";
+			}
+			if(Left > 0){
+				banner.style.left = -1500+"px";
+			}
+		}
+		right.onclick = function(){
+			move(-500);
+			num++;
+			if(num > 4){
+				num = 1;
+			}
+			btn();
+		}
+		left.onclick = function(){
+			move(500);
+			num--;
+			if(num < 1){
+				num = 4;
+			}
+			btn();
+		}
+		function btn(){
+			for(var j=0;j<li.length;j++){
+				li[j].className = "";
+			}
+			li[num-1].className = "active";
+		}
+		for(var i=0;i<li.length;i++){
+			li[i].onclick = function(){
+				var index_li = parseInt(this.getAttribute("index"));
+				var on_li = -500*(index_li-num);
+				move(on_li);
+				num = index_li;
+				btn();
+			}
+		}
+		var timer;
+		function play(){
+			timer = setInterval(function(){
+				right.onclick();
+			},1000)
+		}
+		box.onmouseover = function(){
+			clearInterval(timer);
+		}
+		box.onmouseout = function(){
+			clearInterval(timer);
+			play();
+		}
+		play();
+
+		left_div.onmouseover = function(){
+			left.style.display = "block";
+		}
+		left_div.onmouseout = function(){
+			left.style.display = "none";
+		}
+		right_div.onmouseover = function(){
+			right.style.display = "block";
+		}
+		right_div.onmouseout = function(){
+			right.style.display = "none";
+		}
+	}
+</script>
+</html>

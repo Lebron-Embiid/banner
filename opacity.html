@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		div{width: 1280px;height: 550px;}
+	</style>
+</head>
+<body>
+	<div>
+		<img src="slide3.jpg" style="opacity:1;" id="img">
+	</div>
+	<input type="button" name="btn" value="直接隐藏" id="btn1">
+	<input type="button" name="btn" value="渐渐隐藏" id="btn2">
+	<input type="button" name="btn" value="显示" id="btn3">
+</body>
+<script type="text/javascript">
+	var btn1 = document.getElementById("btn1");
+	var btn2 = document.getElementById("btn2");
+	var btn3 = document.getElementById("btn3");
+	var img = document.getElementById("img");
+	btn1.onclick = function(){
+		img.style.display = "none";
+	}
+	btn2.onclick = function(){
+		img.style.opacity = "0";
+		img.style.transition = "2s";
+	}
+	btn3.onclick = function(){
+		img.style.display = "block";
+		img.style.opacity = "1";
+	}
+</script>
+</html>

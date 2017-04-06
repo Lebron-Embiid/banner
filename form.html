@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		form td span{font-size: 12px;margin-left: 10px;display: none;}
+		form td #show{color:red;display: inline-block;}
+	</style>
+</head>
+<body>
+	<form action="" method="get" id="form">
+		<table>
+			<tr>
+				<td>用户名：</td>
+				<td>
+					<input type="text" name="name" id="username"><span>请输入用户名</span>
+				</td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td>
+					<input type="password" name="pwd" id="pwd"><span>请输入密码(不少于6位)</span>
+				</td>
+			</tr>
+			<tr>
+				<td>重复密码：</td>
+				<td>
+					<input type="password" name="pwd" id="new_pwd"><span>密码不一致，请重新输入！</span>
+				</td>
+			</tr>
+			<tr>
+				<td>性别：</td>
+				<td id="radio">
+					<input type="radio" name="sex">男
+					<input type="radio" name="sex">女<span id="sex">请选择性别！</span>
+				</td>
+			</tr>
+			<tr>
+				<td>爱好：</td>
+				<td id="check">
+					<input type="checkbox" name="like">打篮球
+					<input type="checkbox" name="like">听音乐
+					<input type="checkbox" name="like">玩游戏<span id="love">请选择爱好！</span>
+				</td>
+			</tr>
+			<tr>
+				<td>城市：</td>
+				<td>
+					<select name="city" id="city">
+						<option value="sz">深圳</option>
+						<option value="bj">北京</option>
+						<option value="wh">武汉</option>
+						<option value="sh">上海</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>照片：</td>
+				<td>
+					<input type="file" id="file_input"><span id="show">图片必须为.jpg,.gif,.png格式</span>
+				</td>
+			</tr>
+			<tr>
+				<td>个人简介：</td>
+				<td>
+					<textarea name="self" id="profile" cols="30" rows="10"></textarea><span>请输入个人简介，不少于10字。</span>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" value="提交" id="submit">
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script>
+	var form = document.getElementById("form");
+	var username = document.getElementById("username");
+	var pwd = document.getElementById("pwd");
+	var new_pwd = document.getElementById("new_pwd");
+	var self = document.getElementById("profile");
+	var radio = document.getElementById("radio");
+	var check = document.getElementById("check");
+	var radio_input = radio.getElementsByTagName("input");
+	var check_input = check.getElementsByTagName("input");
+	var sex = document.getElementById("sex");
+	var love = document.getElementById("love");
+	var file_input = document.getElementById("file_input");
+	var show = document.getElementById("show");
+	// var name = form.elements[1];
+	username.onfocus = function(){
+		this.nextSibling.style.display = "inline-block";
+	}
+	username.onblur = function(){
+		if(this.value == ""){
+			this.nextSibling.innerHTML = "不能为空，请重新输入！"
+			this.nextSibling.style.color = "red";
+		}else{
+			this.nextSibling.innerHTML = "输入正确！"
+			this.nextSibling.style.color = "green";
+		}
+	}
+	pwd.onfocus = function(){
+		this.nextSibling.style.display = "inline-block";
+	}
+	pwd.onblur = function(){
+		if(pwd.value == ""){
+			pwd.nextSibling.innerHTML = "不能为空，请重新输入！"
+			pwd.nextSibling.style.color = "red";
+		}else if(pwd.value.length < 6){
+			pwd.nextSibling.innerHTML = "密码不能少于6位！"
+			pwd.nextSibling.style.color = "red";
+		}else{
+			pwd.nextSibling.innerHTML = "输入正确！"
+			pwd.nextSibling.style.color = "green";
+		}
+	}
+	new_pwd.onblur = function(){
+		if(new_pwd.value.length < 6){
+			new_pwd.nextSibling.style.display = "inline-block";
+			new_pwd.nextSibling.style.color = "red";
+			new_pwd.nextSibling.innerHTML = "密码不能少于6位！";
+		}else if(new_pwd.value === pwd.value){
+			new_pwd.nextSibling.style.display = "inline-block";
+			new_pwd.nextSibling.style.color = "green";
+			new_pwd.nextSibling.innerHTML = "输入正确！";
+		}else{
+			new_pwd.nextSibling.style.display = "inline-block";
+			new_pwd.nextSibling.style.color = "red";
+			new_pwd.nextSibling.innerHTML = "密码输入不一致！";
+
+		}
+	}
+	self.onfocus = function(){
+		this.nextSibling.style.display = "inline-block";
+	}
+	self.onblur = function(){
+		this.nextSibling.style.display = "none";
+	}
+	self.oninput = function(){
+		if(this.value.length < 10){
+			this.nextSibling.style.color = "red";
+			this.nextSibling.innerHTML = "字数不能少于10";
+		}else{
+			this.nextSibling.style.color = "green";
+			this.nextSibling.innerHTML = "输入正确！"
+		}
+	}
+	form.onsubmit = function(){
+		if(username.value == ""){
+			username.nextSibling.style.display = "inline-block";
+			username.nextSibling.innerHTML = "不能为空，请重新输入！"
+			username.nextSibling.style.color = "red";
+		}
+		if(pwd.value == ""){
+			pwd.nextSibling.style.display = "inline-block";
+			pwd.nextSibling.innerHTML = "不能为空，请重新输入！"
+			pwd.nextSibling.style.color = "red";
+		}
+		if(file_input.value == ""){
+			show.innerHTML = "请上传照片！"
+		}
+		if(self.value == ""){
+			self.nextSibling.style.display = "inline-block";
+			self.nextSibling.style.color = "red";
+		}
+		for(var i=0;i<radio_input.length;i++){
+			if(radio_input[i].checked == false){
+				sex.style.display = "inline-block";
+				sex.style.color = "red";
+			}else{
+				return true;
+			}
+		}
+		for(var i=0;i<check_input.length;i++){
+			if(check_input[i].checked == false){
+				love.style.display = "inline-block";
+				love.style.color = "red";
+				return false;
+			}else{
+				return true;
+			}
+		}
+	}
+	file_input.onblur = function(){
+		if(file_input.value.slice(-4) == ".jpg" || file_input.value.slice(-4) == ".png" || file_input.value.slice(-4) == ".gif"){
+			show.innerHTML = "图片载入成功！"
+			show.style.color = "green";
+		}
+	}
+	
+</script>
+</html>
